@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CineWeb.DomainEntities.Customer>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Customer List</h2>
+
+<table id="customers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.MembershipType)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>
+                    @*Linkteki id değeri Update metodunun parametresi olarak MVC tarafından eşlenir.*@
+                    @customer.CustomerName
+                </td>
+                <td>
+                    @customer.MembershipType.MembershipTypeName
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#customers").DataTable();
+        });
+    </script>
+}
+

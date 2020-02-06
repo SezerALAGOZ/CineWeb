@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CineWeb.DomainEntities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -29,5 +30,16 @@ namespace CineWeb.Models
         {
             return new ApplicationDbContext();
         }
+
+        public virtual DbSet<Customer> Customers { get; set; }
+
+        public virtual DbSet<Movie> Movies { get; set; }
+
+        public virtual DbSet<Genre> Genres { get; set; }
+
+        public virtual DbSet<MembershipType> MembershipTypes { get; set; }
+
+        public virtual DbSet<Rental> Rentals { get; set; }
+
     }
 }

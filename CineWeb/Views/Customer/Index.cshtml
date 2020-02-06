@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CineWeb.DomainEntities.Customer>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Customer List</h2>
+
+@Html.ActionLink("Create New Customer", "Create", "Customer")
+
+<table id="customers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.MembershipType)
+            </th>
+            <th>
+                Delete Customer
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>
+                    @*Linkteki id değeri Update metodunun parametresi olarak MVC tarafından eşlenir.*@
+                    @Html.ActionLink(customer.CustomerName, "Update", new {id = customer.CustomerId })
+                </td>
+                <td>
+                    @customer.MembershipType.MembershipTypeName
+                </td>
+                <td>
+                    @*Fordaki id değeri Delete metodunun parametresi olarak MVC tarafından eşlenir.*@
+                    @using (Html.BeginForm("Delete", "Customer", new { id = customer.CustomerId }))
+                    {
+                        <button type="submit" class="btn btn-link">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#customers").DataTable();
+        });
+    </script>
+}
+

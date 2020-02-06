@@ -1,0 +1,33 @@
+﻿@model CineWeb.Models.MovieGenreViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create a New Movie</h2>
+
+@using (Html.BeginForm("Create", "Movie", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(p => p.Movie.MovieName, "Movie Name")
+        @Html.TextBoxFor(p => p.Movie.MovieName, new { @class = "form-control", placeholder = "Enter your name" })
+        @Html.ValidationMessageFor(p => p.Movie.MovieName, "(Required*)")
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Movie.NumberInStock, "Number In Stock")
+        @Html.TextBoxFor(p => p.Movie.NumberInStock, new { @class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Movie.ReleaseDate, "Date of Release")
+        @Html.TextBoxFor(p => p.Movie.ReleaseDate, new { @class = "form-control", placeholder = "DD-MM-YYYY"})
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Movie.Genre, "Genre")
+        @Html.DropDownListFor(p => p.Movie.GenreId, new SelectList(Model.Genres, "GenreId", "GenreName", new { @class = "form-control" }), "Select a Genre")
+    </div>
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(p => p.Movie.MovieId)
+    <button type="submit" class="btn btn-primary">Save</button>
+}

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CineWeb.DomainEntities.Movie>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Movie List</h2>
+
+@Html.ActionLink("Create a New Movie", "Create", "Movie")
+<table id="movies" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.MovieId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.MovieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Genre.GenreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.ReleaseDate)
+            </th>
+            <th>
+                Delete Movie
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>
+                    @movie.MovieId
+                </td>
+                <td>
+                    @Html.ActionLink(movie.MovieName, "Update", new { id = movie.MovieId})
+                </td>
+                <td>
+                    @movie.Genre.GenreName
+                </td>
+                <td>
+                    @movie.ReleaseDate
+                </td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Movie", new { id = movie.MovieId }))
+                    {
+                        <button class="btn btn-link">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#movies").DataTable();
+        });
+    </script>
+}
+
